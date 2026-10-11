@@ -12,4 +12,23 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    // Pre-bundle deps used only by lazily loaded routes so the dev server doesn't
+    // re-optimize mid-navigation ("error loading dynamically imported module").
+    optimizeDeps: {
+      include: [
+        "@radix-ui/react-progress",
+        "@radix-ui/react-select",
+        "@radix-ui/react-dialog",
+        "@radix-ui/react-alert-dialog",
+        "@radix-ui/react-switch",
+        "@radix-ui/react-label",
+        "@radix-ui/react-slot",
+        "input-otp",
+        "date-fns",
+        "sonner",
+        "lucide-react",
+      ],
+    },
+  },
 });
