@@ -19,14 +19,14 @@ export const DEMAND_MIN_SHOPS = 3;
  * (e.g. shop names) the API might accidentally include. */
 export function safeDemand(rows: unknown[]): DemandSignal[] {
   return rows
-    .map((r) => r as Record<string, unknown>)
-    .filter((r) => typeof r.shopCount === "number" && (r.shopCount as number) >= DEMAND_MIN_SHOPS)
+    .map((r) => r as Partial<DemandSignal> & Record<string, unknown>)
+    .filter((r) => typeof r.shopCount === "number" && (r.shopCount!) >= DEMAND_MIN_SHOPS)
     .map((r) => ({
       productName: String(r.productName ?? ""),
       category: String(r.category ?? ""),
       packSize: Number(r.packSize ?? 0),
       unit: String(r.unit ?? ""),
-      shopCount: r.shopCount as number,
+      shopCount: r.shopCount!,
       totalPacks: Number(r.totalPacks ?? 0),
       period: String(r.period ?? ""),
     }));

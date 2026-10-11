@@ -21,7 +21,7 @@ export class ApiError extends Error {
   }
 }
 
-const API_URL = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "");
+const API_URL = (import.meta.env["VITE_API_URL"] as string | undefined)?.replace(/\/$/, "");
 export const IS_DEMO = !API_URL;
 
 const SESSION_KEY = "kn_supplier_session";
@@ -65,7 +65,7 @@ export async function request<T>(method: string, path: string, body?: unknown): 
         "Content-Type": "application/json",
         ...(session ? { Authorization: `Bearer ${session.token}` } : {}),
       },
-      body: body === undefined ? undefined : JSON.stringify(body),
+      body: body === undefined ? null : JSON.stringify(body),
     });
   } catch (e) {
     if ((e as Error).name === "AbortError")

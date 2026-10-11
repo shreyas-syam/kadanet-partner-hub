@@ -36,13 +36,15 @@ let supplier: Supplier | null = {
   serviceArea: "Kozhikode city",
 };
 
-let products: Product[] = [
+const seedProducts: Product[] = [
   { id: "p1", sku: "RIC-JAY-25", name: "Jaya Rice", category: "Rice", packSize: 25, unit: "kg", wholesalePrice: 1150, moq: 4, active: true },
   { id: "p2", sku: "OIL-CCN-15", name: "Coconut Oil", category: "Oils", packSize: 15, unit: "L", wholesalePrice: 2850, moq: 2, active: true },
   { id: "p3", sku: "SUG-WHT-50", name: "Sugar", category: "Staples", packSize: 50, unit: "kg", wholesalePrice: 2100, moq: 1, active: true },
   { id: "p4", sku: "TEA-DST-10", name: "Tea Dust", category: "Beverages", packSize: 10, unit: "kg", wholesalePrice: 2600, moq: 1, active: true },
   { id: "p5", sku: "ATT-WHL-10", name: "Whole Wheat Atta", category: "Flour", packSize: 10, unit: "kg", wholesalePrice: 420, moq: 5, active: false },
 ];
+let products = seedProducts;
+const [P1, P2, P3, P4] = seedProducts as [Product, Product, Product, Product, Product];
 
 const item = (p: Product, q: number) => ({
   productId: p.id, name: p.name, sku: p.sku, packSize: p.packSize, unit: p.unit, quantity: q, unitPrice: p.wholesalePrice,
@@ -54,12 +56,12 @@ const mkOrder = (id: string, ref: string, shop: string, area: string, items: Ret
 });
 
 let orders: Order[] = [
-  mkOrder("o1", "PO-1042", "Sample Store A", "Nadakkavu", [item(products[0], 6), item(products[2], 2)], "new", 0.5, [{ status: "new", at: h(0.5) }]),
-  mkOrder("o2", "PO-1041", "Sample Store B", "Mavoor Road", [item(products[1], 3)], "new", 2, [{ status: "new", at: h(2) }]),
-  mkOrder("o3", "PO-1038", "Sample Store C", "Palayam", [item(products[3], 2), item(products[0], 4)], "accepted", 20, [{ status: "new", at: h(22) }, { status: "accepted", at: h(20) }]),
-  mkOrder("o4", "PO-1035", "Sample Store A", "Nadakkavu", [item(products[2], 1)], "dispatched", 30, [{ status: "new", at: h(34) }, { status: "accepted", at: h(32) }, { status: "dispatched", at: h(30), note: "Left warehouse (demo)" }]),
-  mkOrder("o5", "PO-1029", "Sample Store D", "Beach Road", [item(products[1], 2)], "delivered", 72, [{ status: "new", at: h(80) }, { status: "accepted", at: h(78) }, { status: "dispatched", at: h(76) }, { status: "delivered", at: h(72) }]),
-  mkOrder("o6", "PO-1027", "Sample Store E", "Chevayur", [item(products[0], 1)], "rejected", 96, [{ status: "new", at: h(98) }, { status: "rejected", at: h(96), note: "Below minimum order" }]),
+  mkOrder("o1", "PO-1042", "Sample Store A", "Nadakkavu", [item(P1, 6), item(P3, 2)], "new", 0.5, [{ status: "new", at: h(0.5) }]),
+  mkOrder("o2", "PO-1041", "Sample Store B", "Mavoor Road", [item(P2, 3)], "new", 2, [{ status: "new", at: h(2) }]),
+  mkOrder("o3", "PO-1038", "Sample Store C", "Palayam", [item(P4, 2), item(P1, 4)], "accepted", 20, [{ status: "new", at: h(22) }, { status: "accepted", at: h(20) }]),
+  mkOrder("o4", "PO-1035", "Sample Store A", "Nadakkavu", [item(P3, 1)], "dispatched", 30, [{ status: "new", at: h(34) }, { status: "accepted", at: h(32) }, { status: "dispatched", at: h(30), note: "Left warehouse (demo)" }]),
+  mkOrder("o5", "PO-1029", "Sample Store D", "Beach Road", [item(P2, 2)], "delivered", 72, [{ status: "new", at: h(80) }, { status: "accepted", at: h(78) }, { status: "dispatched", at: h(76) }, { status: "delivered", at: h(72) }]),
+  mkOrder("o6", "PO-1027", "Sample Store E", "Chevayur", [item(P1, 1)], "rejected", 96, [{ status: "new", at: h(98) }, { status: "rejected", at: h(96), note: "Below minimum order" }]),
 ];
 
 let invoices: Invoice[] = [];
@@ -69,7 +71,7 @@ function makeInvoice(o: Order) {
   const inv: Invoice = {
     id: `inv_${o.id}`, number: `DEMO-INV-${o.reference.slice(3)}`, orderId: o.id, orderReference: o.reference,
     issuedAt: o.tracking.find((t) => t.status === "accepted")?.at ?? new Date().toISOString(),
-    supplier: { businessName: supplier?.businessName ?? "", address: supplier?.address ?? "", gstin: supplier?.gstin },
+    supplier: { businessName: supplier?.businessName ?? "", address: supplier?.address ?? "", ...(supplier?.gstin ? { gstin: supplier.gstin } : {}) },
     retailer: o.retailer, lines: o.items, subtotal, gstRate: ILLUSTRATIVE_GST_RATE, gst, total: subtotal + gst,
     status: o.status === "delivered" ? "paid" : "unpaid",
   };
