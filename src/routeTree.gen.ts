@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CatalogueRouteImport } from './routes/catalogue'
+import { Route as DemandRouteImport } from './routes/demand'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as GroupBuysIndexRouteImport } from './routes/group-buys.index'
+import { Route as GroupBuysIdRouteImport } from './routes/group-buys.$id'
+import { Route as OrdersIndexRouteImport } from './routes/orders.index'
+import { Route as OrdersIdRouteImport } from './routes/orders.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CatalogueRoute = CatalogueRouteImport.update({
+  id: '/catalogue',
+  path: '/catalogue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemandRoute = DemandRouteImport.update({
+  id: '/demand',
+  path: '/demand',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GroupBuysIndexRoute = GroupBuysIndexRouteImport.update({
+  id: '/group-buys/',
+  path: '/group-buys/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GroupBuysIdRoute = GroupBuysIdRouteImport.update({
+  id: '/group-buys/$id',
+  path: '/group-buys/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdersIndexRoute = OrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdersIdRoute = OrdersIdRouteImport.update({
+  id: '/orders/$id',
+  path: '/orders/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/catalogue': typeof CatalogueRoute
+  '/demand': typeof DemandRoute
+  '/login': typeof LoginRoute
+  '/group-buys/$id': typeof GroupBuysIdRoute
+  '/orders/$id': typeof OrdersIdRoute
+  '/group-buys/': typeof GroupBuysIndexRoute
+  '/orders/': typeof OrdersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/catalogue': typeof CatalogueRoute
+  '/demand': typeof DemandRoute
+  '/login': typeof LoginRoute
+  '/group-buys/$id': typeof GroupBuysIdRoute
+  '/orders/$id': typeof OrdersIdRoute
+  '/group-buys': typeof GroupBuysIndexRoute
+  '/orders': typeof OrdersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/catalogue': typeof CatalogueRoute
+  '/demand': typeof DemandRoute
+  '/login': typeof LoginRoute
+  '/group-buys/$id': typeof GroupBuysIdRoute
+  '/orders/$id': typeof OrdersIdRoute
+  '/group-buys/': typeof GroupBuysIndexRoute
+  '/orders/': typeof OrdersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/catalogue'
+    | '/demand'
+    | '/login'
+    | '/group-buys/$id'
+    | '/orders/$id'
+    | '/group-buys/'
+    | '/orders/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/catalogue'
+    | '/demand'
+    | '/login'
+    | '/group-buys/$id'
+    | '/orders/$id'
+    | '/group-buys'
+    | '/orders'
+  id:
+    | '__root__'
+    | '/'
+    | '/catalogue'
+    | '/demand'
+    | '/login'
+    | '/group-buys/$id'
+    | '/orders/$id'
+    | '/group-buys/'
+    | '/orders/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CatalogueRoute: typeof CatalogueRoute
+  DemandRoute: typeof DemandRoute
+  LoginRoute: typeof LoginRoute
+  GroupBuysIdRoute: typeof GroupBuysIdRoute
+  OrdersIdRoute: typeof OrdersIdRoute
+  GroupBuysIndexRoute: typeof GroupBuysIndexRoute
+  OrdersIndexRoute: typeof OrdersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/catalogue': {
+      id: '/catalogue'
+      path: '/catalogue'
+      fullPath: '/catalogue'
+      preLoaderRoute: typeof CatalogueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demand': {
+      id: '/demand'
+      path: '/demand'
+      fullPath: '/demand'
+      preLoaderRoute: typeof DemandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/group-buys/': {
+      id: '/group-buys/'
+      path: '/group-buys'
+      fullPath: '/group-buys/'
+      preLoaderRoute: typeof GroupBuysIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/group-buys/$id': {
+      id: '/group-buys/$id'
+      path: '/group-buys/$id'
+      fullPath: '/group-buys/$id'
+      preLoaderRoute: typeof GroupBuysIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orders/': {
+      id: '/orders/'
+      path: '/orders'
+      fullPath: '/orders/'
+      preLoaderRoute: typeof OrdersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orders/$id': {
+      id: '/orders/$id'
+      path: '/orders/$id'
+      fullPath: '/orders/$id'
+      preLoaderRoute: typeof OrdersIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CatalogueRoute: CatalogueRoute,
+  DemandRoute: DemandRoute,
+  LoginRoute: LoginRoute,
+  GroupBuysIdRoute: GroupBuysIdRoute,
+  OrdersIdRoute: OrdersIdRoute,
+  GroupBuysIndexRoute: GroupBuysIndexRoute,
+  OrdersIndexRoute: OrdersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
