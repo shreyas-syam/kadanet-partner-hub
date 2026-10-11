@@ -14,7 +14,7 @@ const URGENCY: Record<OrderStatus, number> = { new: 0, accepted: 1, dispatched: 
 
 export const Route = createFileRoute("/orders/")({
   validateSearch: (s: Record<string, unknown>): { status?: OrderStatus } =>
-    FILTERS.includes(s.status as OrderStatus) && s.status !== "all" ? { status: s.status as OrderStatus } : {},
+    FILTERS.includes(s["status"] as OrderStatus) && s["status"] !== "all" ? { status: s["status"] as OrderStatus } : {},
   head: () => seo("Orders", "Incoming retailer purchase orders to accept, dispatch and deliver."),
   component: () => (
     <AppShell title="Orders">

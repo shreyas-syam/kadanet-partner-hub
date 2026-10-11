@@ -113,12 +113,12 @@ const EMPTY: ProductInput = { sku: "", name: "", category: "", packSize: 1, unit
 
 function validate(v: ProductInput) {
   const e: Record<string, string> = {};
-  if (!v.name.trim()) e.name = "Enter a product name.";
-  if (!v.sku.trim()) e.sku = "Enter a SKU code.";
-  if (!(v.packSize > 0)) e.packSize = "Pack size must be more than 0.";
-  if (!v.unit.trim()) e.unit = "Enter a unit, e.g. kg, L or pcs.";
-  if (!(v.wholesalePrice > 0)) e.wholesalePrice = "Price must be more than ₹0.";
-  if (!Number.isInteger(v.moq) || v.moq < 1) e.moq = "Minimum order must be a whole number, 1 or more.";
+  if (!v.name.trim()) e["name"] = "Enter a product name.";
+  if (!v.sku.trim()) e["sku"] = "Enter a SKU code.";
+  if (!(v.packSize > 0)) e["packSize"] = "Pack size must be more than 0.";
+  if (!v.unit.trim()) e["unit"] = "Enter a unit, e.g. kg, L or pcs.";
+  if (!(v.wholesalePrice > 0)) e["wholesalePrice"] = "Price must be more than ₹0.";
+  if (!Number.isInteger(v.moq) || v.moq < 1) e["moq"] = "Minimum order must be a whole number, 1 or more.";
   return e;
 }
 

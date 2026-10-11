@@ -28,7 +28,7 @@ function More() {
   }
   return (
     <>
-      <PageHeader eyebrow={session?.phone} title="More" />
+      <PageHeader eyebrow={session?.phone ?? ""} title="More" />
       <div className="list-surface">
         {[
           { to: "/profile", icon: Store, t: "Supplier profile", s: "Business name, address, service area" },

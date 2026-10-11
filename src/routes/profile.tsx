@@ -67,7 +67,7 @@ function Profile() {
   function submit() {
     const e: Record<string, string> = {};
     FIELDS.forEach((f) => { if (!f.optional && !String(v[f.k] ?? "").trim()) e[f.k] = `Enter ${f.label.toLowerCase()}.`; });
-    if (v.gstin && !/^[0-9A-Z]{15}$/.test(v.gstin)) e.gstin = "GSTIN should be 15 letters/numbers.";
+    if (v.gstin && !/^[0-9A-Z]{15}$/.test(v.gstin)) e["gstin"] = "GSTIN should be 15 letters/numbers.";
     setErrors(e);
     if (!Object.keys(e).length) save.mutate();
   }

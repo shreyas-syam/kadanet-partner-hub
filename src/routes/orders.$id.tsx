@@ -146,7 +146,7 @@ function OrderDetail() {
           title={`${ACTION[pending].label}?`}
           body={ACTION[pending].body}
           confirmLabel={ACTION[pending].label}
-          destructive={ACTION[pending].destructive}
+          destructive={!!ACTION[pending].destructive}
           pending={mut.isPending}
           onConfirm={() => mut.mutate(pending)}
         />

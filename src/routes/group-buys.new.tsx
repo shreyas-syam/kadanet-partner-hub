@@ -55,14 +55,14 @@ function NewGroupBuy() {
 
   function validate() {
     const e: Record<string, string> = {};
-    if (!product) e.product = "Choose a product.";
-    if (!deadline) e.deadline = "Choose a deadline.";
-    else if (new Date(deadline) <= new Date()) e.deadline = "Deadline must be in the future.";
+    if (!product) e["product"] = "Choose a product.";
+    if (!deadline) e["deadline"] = "Choose a deadline.";
+    else if (new Date(deadline) <= new Date()) e["deadline"] = "Deadline must be in the future.";
     tiers.forEach((t, i) => {
       if (!Number.isInteger(t.minPacks) || t.minPacks < 1) e[`t${i}`] = "Minimum packs must be a whole number of 1 or more.";
       else if (!(t.price > 0)) e[`t${i}`] = "Price must be more than ₹0.";
       else if (product && t.price >= product.wholesalePrice) e[`t${i}`] = `Should be below your usual price of ${inr(product.wholesalePrice)}.`;
-      else if (i > 0 && (t.minPacks <= tiers[i - 1].minPacks || t.price >= tiers[i - 1].price))
+      else if (i > 0 && (t.minPacks <= tiers[i - 1]!.minPacks || t.price >= tiers[i - 1]!.price))
         e[`t${i}`] = "Each tier needs more packs and a lower price than the one before.";
     });
     setErrors(e);
@@ -84,7 +84,7 @@ function NewGroupBuy() {
           <div className="space-y-1.5">
             <Label htmlFor="gb-product">Product</Label>
             <Select value={productId} onValueChange={setProductId}>
-              <SelectTrigger id="gb-product" className="min-h-12 rounded-[18px] bg-elevated" aria-invalid={!!errors.product}>
+              <SelectTrigger id="gb-product" className="min-h-12 rounded-[18px] bg-elevated" aria-invalid={!!errors["product"]}>
                 <SelectValue placeholder="Choose from your catalogue" />
               </SelectTrigger>
               <SelectContent>
@@ -95,12 +95,12 @@ function NewGroupBuy() {
                 ))}
               </SelectContent>
             </Select>
-            {errors.product && <p className="text-xs font-medium text-destructive">{errors.product}</p>}
+            {errors["product"] && <p className="text-xs font-medium text-destructive">{errors["product"]}</p>}
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="gb-deadline">Deadline</Label>
-            <Input id="gb-deadline" type="datetime-local" value={deadline} onChange={(e) => setDeadline(e.target.value)} aria-invalid={!!errors.deadline} />
-            {errors.deadline && <p className="text-xs font-medium text-destructive">{errors.deadline}</p>}
+            <Input id="gb-deadline" type="datetime-local" value={deadline} onChange={(e) => setDeadline(e.target.value)} aria-invalid={!!errors["deadline"]} />
+            {errors["deadline"] && <p className="text-xs font-medium text-destructive">{errors["deadline"]}</p>}
           </div>
           <div>
             <p className="section-title mb-2">Price tiers {product && <span className="text-sm font-normal text-muted-foreground">(per {pack(product.packSize, product.unit)} pack)</span>}</p>
