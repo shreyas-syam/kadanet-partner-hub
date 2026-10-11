@@ -13,8 +13,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CatalogueRouteImport } from './routes/catalogue'
 import { Route as DemandRouteImport } from './routes/demand'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as MoreRouteImport } from './routes/more'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as GroupBuysIndexRouteImport } from './routes/group-buys.index'
 import { Route as GroupBuysIdRouteImport } from './routes/group-buys.$id'
+import { Route as GroupBuysNewRouteImport } from './routes/group-buys.new'
+import { Route as InvoicesIndexRouteImport } from './routes/invoices.index'
+import { Route as InvoicesIdRouteImport } from './routes/invoices.$id'
 import { Route as OrdersIndexRouteImport } from './routes/orders.index'
 import { Route as OrdersIdRouteImport } from './routes/orders.$id'
 
@@ -38,6 +43,16 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MoreRoute = MoreRouteImport.update({
+  id: '/more',
+  path: '/more',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GroupBuysIndexRoute = GroupBuysIndexRouteImport.update({
   id: '/group-buys/',
   path: '/group-buys/',
@@ -46,6 +61,21 @@ const GroupBuysIndexRoute = GroupBuysIndexRouteImport.update({
 const GroupBuysIdRoute = GroupBuysIdRouteImport.update({
   id: '/group-buys/$id',
   path: '/group-buys/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GroupBuysNewRoute = GroupBuysNewRouteImport.update({
+  id: '/group-buys/new',
+  path: '/group-buys/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvoicesIndexRoute = InvoicesIndexRouteImport.update({
+  id: '/invoices/',
+  path: '/invoices/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvoicesIdRoute = InvoicesIdRouteImport.update({
+  id: '/invoices/$id',
+  path: '/invoices/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrdersIndexRoute = OrdersIndexRouteImport.update({
@@ -64,9 +94,14 @@ export interface FileRoutesByFullPath {
   '/catalogue': typeof CatalogueRoute
   '/demand': typeof DemandRoute
   '/login': typeof LoginRoute
+  '/more': typeof MoreRoute
+  '/profile': typeof ProfileRoute
   '/group-buys/$id': typeof GroupBuysIdRoute
+  '/group-buys/new': typeof GroupBuysNewRoute
+  '/invoices/$id': typeof InvoicesIdRoute
   '/orders/$id': typeof OrdersIdRoute
   '/group-buys/': typeof GroupBuysIndexRoute
+  '/invoices/': typeof InvoicesIndexRoute
   '/orders/': typeof OrdersIndexRoute
 }
 export interface FileRoutesByTo {
@@ -74,9 +109,14 @@ export interface FileRoutesByTo {
   '/catalogue': typeof CatalogueRoute
   '/demand': typeof DemandRoute
   '/login': typeof LoginRoute
+  '/more': typeof MoreRoute
+  '/profile': typeof ProfileRoute
   '/group-buys/$id': typeof GroupBuysIdRoute
+  '/group-buys/new': typeof GroupBuysNewRoute
+  '/invoices/$id': typeof InvoicesIdRoute
   '/orders/$id': typeof OrdersIdRoute
   '/group-buys': typeof GroupBuysIndexRoute
+  '/invoices': typeof InvoicesIndexRoute
   '/orders': typeof OrdersIndexRoute
 }
 export interface FileRoutesById {
@@ -85,9 +125,14 @@ export interface FileRoutesById {
   '/catalogue': typeof CatalogueRoute
   '/demand': typeof DemandRoute
   '/login': typeof LoginRoute
+  '/more': typeof MoreRoute
+  '/profile': typeof ProfileRoute
   '/group-buys/$id': typeof GroupBuysIdRoute
+  '/group-buys/new': typeof GroupBuysNewRoute
+  '/invoices/$id': typeof InvoicesIdRoute
   '/orders/$id': typeof OrdersIdRoute
   '/group-buys/': typeof GroupBuysIndexRoute
+  '/invoices/': typeof InvoicesIndexRoute
   '/orders/': typeof OrdersIndexRoute
 }
 export interface FileRouteTypes {
@@ -97,9 +142,14 @@ export interface FileRouteTypes {
     | '/catalogue'
     | '/demand'
     | '/login'
+    | '/more'
+    | '/profile'
     | '/group-buys/$id'
+    | '/group-buys/new'
+    | '/invoices/$id'
     | '/orders/$id'
     | '/group-buys/'
+    | '/invoices/'
     | '/orders/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -107,9 +157,14 @@ export interface FileRouteTypes {
     | '/catalogue'
     | '/demand'
     | '/login'
+    | '/more'
+    | '/profile'
     | '/group-buys/$id'
+    | '/group-buys/new'
+    | '/invoices/$id'
     | '/orders/$id'
     | '/group-buys'
+    | '/invoices'
     | '/orders'
   id:
     | '__root__'
@@ -117,9 +172,14 @@ export interface FileRouteTypes {
     | '/catalogue'
     | '/demand'
     | '/login'
+    | '/more'
+    | '/profile'
     | '/group-buys/$id'
+    | '/group-buys/new'
+    | '/invoices/$id'
     | '/orders/$id'
     | '/group-buys/'
+    | '/invoices/'
     | '/orders/'
   fileRoutesById: FileRoutesById
 }
@@ -128,9 +188,14 @@ export interface RootRouteChildren {
   CatalogueRoute: typeof CatalogueRoute
   DemandRoute: typeof DemandRoute
   LoginRoute: typeof LoginRoute
+  MoreRoute: typeof MoreRoute
+  ProfileRoute: typeof ProfileRoute
   GroupBuysIdRoute: typeof GroupBuysIdRoute
+  GroupBuysNewRoute: typeof GroupBuysNewRoute
+  InvoicesIdRoute: typeof InvoicesIdRoute
   OrdersIdRoute: typeof OrdersIdRoute
   GroupBuysIndexRoute: typeof GroupBuysIndexRoute
+  InvoicesIndexRoute: typeof InvoicesIndexRoute
   OrdersIndexRoute: typeof OrdersIndexRoute
 }
 
@@ -164,6 +229,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/more': {
+      id: '/more'
+      path: '/more'
+      fullPath: '/more'
+      preLoaderRoute: typeof MoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/group-buys/': {
       id: '/group-buys/'
       path: '/group-buys'
@@ -176,6 +255,27 @@ declare module '@tanstack/react-router' {
       path: '/group-buys/$id'
       fullPath: '/group-buys/$id'
       preLoaderRoute: typeof GroupBuysIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/group-buys/new': {
+      id: '/group-buys/new'
+      path: '/group-buys/new'
+      fullPath: '/group-buys/new'
+      preLoaderRoute: typeof GroupBuysNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invoices/': {
+      id: '/invoices/'
+      path: '/invoices'
+      fullPath: '/invoices/'
+      preLoaderRoute: typeof InvoicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invoices/$id': {
+      id: '/invoices/$id'
+      path: '/invoices/$id'
+      fullPath: '/invoices/$id'
+      preLoaderRoute: typeof InvoicesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/orders/': {
@@ -200,9 +300,14 @@ const rootRouteChildren: RootRouteChildren = {
   CatalogueRoute: CatalogueRoute,
   DemandRoute: DemandRoute,
   LoginRoute: LoginRoute,
+  MoreRoute: MoreRoute,
+  ProfileRoute: ProfileRoute,
   GroupBuysIdRoute: GroupBuysIdRoute,
+  GroupBuysNewRoute: GroupBuysNewRoute,
+  InvoicesIdRoute: InvoicesIdRoute,
   OrdersIdRoute: OrdersIdRoute,
   GroupBuysIndexRoute: GroupBuysIndexRoute,
+  InvoicesIndexRoute: InvoicesIndexRoute,
   OrdersIndexRoute: OrdersIndexRoute,
 }
 export const routeTree = rootRouteImport
